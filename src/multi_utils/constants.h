@@ -21,11 +21,11 @@ float FOV = 90.0f;
 float Z_NEAR= 0.25f;
 float Z_FAR = 1000.0f;
 
-const char* VS_FILE_NAME= "/home/alfab/experiments/math_viz/src/shaders/shader.vs";
-const char* FS_FILE_NAME = "/home/alfab/experiments/math_viz/src/shaders/shader.fs";
+const char* VS_FILE_NAME= "/workdir/src/shaders/shader.vs";
+const char* FS_FILE_NAME = "/workdir/src/shaders/shader.fs";
 
-const char* VS2_FILE_NAME= "/home/alfab/experiments/math_viz/src/shaders/shader2.vs";
-const char* FS2_FILE_NAME = "/home/alfab/experiments/math_viz/src/shaders/shader2.fs";
+const char* VS2_FILE_NAME= "/workdir/src/shaders/shader2.vs";
+const char* FS2_FILE_NAME = "/workdir/src/shaders/shader2.fs";
 
 VT CUBE_VERTICES[] = {
     VT(0.1f, 0.1f, 0.1f, 0.95, 0.35, 0.35),
