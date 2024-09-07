@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)  # Specify the minimum version of CMake
-project(math_viz)  # Name your project
+project(flocking_viz)  # Name your project
 
 # Specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
@@ -13,7 +13,7 @@ find_package(GLEW REQUIRED)
 
 include_directories(${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS})
 
-add_executable(math_viz src/main.cpp 
+add_executable(flocking_viz src/main.cpp 
     src/ogl_utils/ogldev_util.cpp
     src/ogl_utils/ogldev_math_3d.cpp
     src/ogl_utils/technique.cpp
@@ -23,4 +23,4 @@ add_executable(math_viz src/main.cpp
     src/multi_utils/mesh.cpp
     )
     
-target_link_libraries(math_viz ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${GLEW_LIBRARIES} glfw)
+target_link_libraries(flocking_viz ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${GLEW_LIBRARIES} glfw)

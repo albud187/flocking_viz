@@ -21,6 +21,7 @@ Camera GameCamera(WINDOW_WIDTH, WINDOW_HEIGHT, CAMERA_POS, CAMERA_TARGET, CAMERA
 PersProjInfo persProjInfo = { FOV, WINDOW_WIDTH, WINDOW_HEIGHT, Z_NEAR, Z_FAR };
 
 std::vector<std::shared_ptr<Mesh>> game_objects;
+std::vector<std::shared_ptr<Mesh>> moving_objects;
 std::vector<GLuint> shaders; 
 std::vector<std::shared_ptr<Mesh>> grid_objects;
 std::shared_ptr<Mesh> target_object = nullptr;
@@ -53,6 +54,21 @@ void init_shaders(){
     shaders.push_back(shader2);
 }
 
+
+void flocking_control(std::vector<std::shared_ptr<Mesh>> moving_objects, std::shared_ptr<Mesh> swarm_center){
+
+
+    
+    //loop thru game objects that are not selected
+
+    //slected object = swarm center
+
+
+
+}
+
+//need to create a function to insantiate objects dynamically
+//use an ordered_map<int, std::make_shared<Mesh>> ?
 void init_game_objects() {
 
     auto s1 = std::make_shared<Mesh>(PYRAMID3_VERTICES, NV_PYRAMID3, PYRAMID3_INDICES, NI_PYRAMID3);
@@ -62,12 +78,12 @@ void init_game_objects() {
     s1->setRotation(0, 0, 0);
     game_objects.push_back(s1);
 
-    // auto s2 = std::make_shared<Mesh>(PYRAMID3_VERTICES, NV_PYRAMID3, PYRAMID3_INDICES, NI_PYRAMID3);
-    // s2->SetShaderProgram(shaders[0]);
-    // s2->setID(22);
-    // s2->SetPosition(1.0f, 1.0f, 3.0f);
-    // s2->setRotation(0, 0, 0);
-    // game_objects.push_back(s2);
+    auto s2 = std::make_shared<Mesh>(PYRAMID3_VERTICES, NV_PYRAMID3, PYRAMID3_INDICES, NI_PYRAMID3);
+    s2->SetShaderProgram(shaders[0]);
+    s2->setID(22);
+    s2->SetPosition(1.0f, 1.0f, 3.0f);
+    s2->setRotation(0, 0, 0);
+    game_objects.push_back(s2);
 
     // auto s3 = std::make_shared<Mesh>(PYRAMID3_VERTICES, NV_PYRAMID3, PYRAMID3_INDICES, NI_PYRAMID3);
     // s3->SetShaderProgram(shaders[0]);
@@ -175,6 +191,16 @@ static void MouseCB(int button, int state, int x, int y) {
             if (picked_object != nullptr){
                 target_object = picked_object;
                 std::cout<<"object picked with ID: "<<target_object->obj_id<<std::endl;
+                moving_objects.clear();
+
+                for (std::shared_ptr<Mesh> obj : game_objects){
+                    if (obj!=target_object){
+                        moving_objects.push_back(obj);
+                        std::cout<<"test"<<std::endl;
+                    }
+                }
+                std::cout<<"test"<<std::endl;
+                moving_objects[0]->setRotation(0, 30, 0);
             }
         }
         GameCamera.OnMouseDown(button, x, y); 

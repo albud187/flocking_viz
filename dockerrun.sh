@@ -23,7 +23,6 @@ else
                -e DISPLAY=$DISPLAY \
                -v ${PWD}:${WORKDIR} \
                -v /tmp/.X11-unix:/tmp/.X11-unix \
-               --network=host \
                --workdir=${WORKDIR} \
                ${CONTAINER_NAME}
 fi

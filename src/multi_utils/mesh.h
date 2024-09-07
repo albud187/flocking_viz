@@ -22,6 +22,8 @@ public:
     void SetPosition(float x, float y, float z);
     void setRotation(float rx, float ry, float rz);
     void translate(float x, float y, float z);
+    void setVel(float x, float y, float z);
+    void updatePose();
     void rotate(float rx, float ry, float rz);
     void Draw(const Matrix4f& projection, const Matrix4f& view, GLuint gWVPLocation);
     void DrawLine(const Matrix4f& projection, const Matrix4f& view, GLuint gWVPLocation);
