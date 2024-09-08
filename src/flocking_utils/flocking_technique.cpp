@@ -40,3 +40,4 @@ void update_velocities(Eigen::MatrixXd velocity_matrix, std::vector<std::shared_
     }
 
 }
+
