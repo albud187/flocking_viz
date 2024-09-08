@@ -9,9 +9,14 @@ find_package(GLUT REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(GLEW REQUIRED)
-# Include directories
+find_package(Eigen3 REQUIRED)
 
-include_directories(${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS})
+
+# reynolds_flock library
+add_library(flocking_technique src/flocking_utils/flocking_technique.cpp)
+
+# Include directories
+include_directories(${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIRS})
 
 add_executable(flocking_viz src/main.cpp 
     src/ogl_utils/ogldev_util.cpp
@@ -23,4 +28,4 @@ add_executable(flocking_viz src/main.cpp
     src/multi_utils/mesh.cpp
     )
     
-target_link_libraries(flocking_viz ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${GLEW_LIBRARIES} glfw)
+target_link_libraries(flocking_viz flocking_technique ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${GLEW_LIBRARIES} glfw)

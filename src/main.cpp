@@ -15,6 +15,7 @@
 #include "multi_utils/constants.h"
 #include "multi_utils/shaders.h"
 #include "multi_utils/mesh.h"
+#include "flocking_utils/flocking_technique.h"
 
 GLuint gWVPLocation;
 Camera GameCamera(WINDOW_WIDTH, WINDOW_HEIGHT, CAMERA_POS, CAMERA_TARGET, CAMERA_UP);
