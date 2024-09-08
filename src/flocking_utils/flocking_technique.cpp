@@ -41,3 +41,21 @@ void update_velocities(Eigen::MatrixXd velocity_matrix, std::vector<std::shared_
 
 }
 
+Eigen::MatrixXd alignment_vel(Eigen::MatrixXd object_velocities, Eigen::MatrixXd object_positions){
+
+    
+    Eigen::MatrixXd result_matrix(3, object_velocities.cols());
+
+    Eigen::Vector3d vectorsum = Eigen::Vector3d::Zero();
+    for (int i = 0; i < object_velocities.cols(); i++){
+        vectorsum = vectorsum + object_velocities.col(i);
+    }
+    Eigen::Vector3d avg_vect = vectorsum / object_velocities.cols();
+
+    for (int i = 0; i < object_velocities.cols(); i++){
+        result_matrix.col(i) = avg_vect;
+    }
+
+    return result_matrix;
+
+}
