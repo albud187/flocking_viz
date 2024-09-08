@@ -35,6 +35,13 @@ void WorldTrans::Translate(float x, float y, float z)
     m_pos.y += y;
     m_pos.z += z;
 }
+
+void WorldTrans::setVel(float x, float y, float z)
+{
+    m_vel.x = x;
+    m_vel.y = y;
+    m_vel.z = z;
+}
 Matrix4f WorldTrans::GetMatrix()
 {
     Matrix4f Scale;

@@ -59,6 +59,8 @@ void init_shaders(){
 void flocking_control(std::vector<std::shared_ptr<Mesh>> moving_objects, std::shared_ptr<Mesh> swarm_center){
 
 
+    //get the positions in an array
+    //get the velocities in an array
     
     //loop thru game objects that are not selected
 
@@ -85,13 +87,6 @@ void init_game_objects() {
     s2->SetPosition(1.0f, 1.0f, 3.0f);
     s2->setRotation(0, 0, 0);
     game_objects.push_back(s2);
-
-    // auto s3 = std::make_shared<Mesh>(PYRAMID3_VERTICES, NV_PYRAMID3, PYRAMID3_INDICES, NI_PYRAMID3);
-    // s3->SetShaderProgram(shaders[0]);
-    // s3->setID(33);
-    // s3->SetPosition(2.0f, 1.0f, 3.0f);
-    // s3->setRotation(0, 0, 0);
-    // game_objects.push_back(s3);
 
     for (int k = 0; k<GRID_L; k++){
         for (int i = 0; i<GRID_W; i++){
@@ -122,8 +117,9 @@ static void RenderSceneCB()
     draw_lines(grid_objects, Projection, View, gWVPLocation);
     
     game_objects[0]->Draw(Projection, View, gWVPLocation);
-   
- 
+    game_objects[0]->transform.setVel(0.0, 0, 0.1);
+
+    game_objects[0]->transform.Translate(game_objects[0]->transform.m_vel.x, game_objects[0]->transform.m_vel.y, game_objects[0]->transform.m_vel.z);
     glutPostRedisplay();
     glutSwapBuffers();
 
@@ -136,14 +132,6 @@ static void RenderSceneCB()
         std::this_thread::sleep_for(targetFrameTime - frameDuration);
     }
     lastFrameTime = std::chrono::high_resolution_clock::now();
-
-    //need an update function 
-
-    //identify swarm center, it will only move with keyboard press
-    
-    //loop thru all other objects
-    //make swarm center object position constant until button press
-    //pass as input into objects
     
 }
 
