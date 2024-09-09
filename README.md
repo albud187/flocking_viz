@@ -1,26 +1,77 @@
-# flocking_viz
+This repo is a visualization of [reynold's boids](https://en.wikipedia.org/wiki/Boids). It is a flocking algorithm based on the swarm's cohesion, alignment and velocity. The visualization used OpenGL.
 
-clone the repo
 
-build the docker container
+# File Structure
+This repo contains the source code (c++), Dockerfile and bash scripts to build and run the container. This project is meant to be compiled and executed from the container.
 
-run the docker container
+```
+/current_directory/flocking_viz/
+├── CMakeLists.txt
+├── Dockerfile
+├── dockerbuild.sh
+├── dockerrun.sh
+├── src/
+```
+The `src/` directory contains the c++ source code to be compiled.
 
-create build directory and insantiate cmake project
+When running the container the file structure is as follows:
+```
+/workdir/
+├── CMakeLists.txt
+├── Dockerfile
+├── dockerbuild.sh
+├── dockerrun.sh
+├── src/
+```
 
-build the project
-cmake --build .
 
-run the project
+# Setup
 
-#usage
+1 - Clone the repo and change directory into the repo:
+```
+git clone git@github.com:albud187/flocking_viz.git
+```
 
-selected object becomes the swarm center
+```
+cd flocking_viz
+```
 
-keys: 
+2 - Build the container:
+```
+sh dockerbuild.sh
+```
 
-translate swarm center on x,y,z axes
-add object: 
-remove object:
-move camera
+3 - Run the container:
+```
+sh dockerrun.sh
+```
+
+3 - create build directory and change directory into `/workdir/build`
+
+```
+mkdir build
+```
+
+```
+cd build
+```
+
+4 - initialize cmake and build the project. On the `/workdir/build` execute:
+
+```
+cmake ..
+```
+
+```
+cmake --build.
+```
+
+4 -run the project:
+
+```
+./flocking_viz
+```
+
+
+
 
