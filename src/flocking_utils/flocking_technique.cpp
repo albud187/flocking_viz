@@ -1,4 +1,3 @@
-#include "matrix_tools.h"
 #include "../multi_utils/mesh.h"
 #include <Eigen/Dense>
 //matrix tools interfaces with opengl
@@ -42,7 +41,7 @@ void update_velocities(Eigen::MatrixXd velocity_matrix, std::vector<std::shared_
 }
 
 //tend to get velocity to ge the same
-Eigen::MatrixXd alignment_vel(Eigen::MatrixXd object_velocities, Eigen::MatrixXd object_positions){
+Eigen::MatrixXd alignment_vel(Eigen::MatrixXd object_velocities){
 
     
     Eigen::MatrixXd result_matrix(3, object_velocities.cols());
@@ -72,19 +71,18 @@ double velocity_mag (double target_distance, double max_vel, double dt){
 
 }
 
-Eigen::MatrixXd cohesion_vel(Eigen::MatrixXd object_velocities, 
-                            Eigen::MatrixXd object_positions, 
+Eigen::MatrixXd cohesion_vel(Eigen::MatrixXd object_positions, 
                             Vector3f control_point,
                             double max_vel)
 {
     
-    Eigen::MatrixXd result_matrix(3, object_velocities.cols())
+    Eigen::MatrixXd result_matrix(3, object_positions.cols());
 
     //convert to eigen
     Eigen::Vector3d control_pos;
-    control_pos.x() = control_point.x();
-    control_pos.y() = control_point.y();
-    control_pos.z() = control_point.z();
+    control_pos.x() = control_point.x;
+    control_pos.y() = control_point.y;
+    control_pos.z() = control_point.z;
 
     //get average positions
     Eigen::Vector3d obj_pos_sum;
@@ -101,6 +99,31 @@ Eigen::MatrixXd cohesion_vel(Eigen::MatrixXd object_velocities,
 
         Eigen::Vector3d coh_vel_c = velocity_mag(target_vector.norm(), max_vel, 1.0)*target_vector/target_vector.norm();
         result_matrix.col(c) = coh_vel_c;
+    }
+
+    return result_matrix;
+}
+
+
+Eigen::MatrixXd seperation_vel(Eigen::MatrixXd object_positions){
+    Eigen::MatrixXd result_matrix(3, object_positions.cols());
+
+    for (int c = 0; c<object_positions.cols(); c++){
+        Eigen::Vector3d sep_vel_c = Eigen::Vector3d::Zero();
+        Eigen::Vector3d obj_pos_c = object_positions.col(c);
+    
+
+        for (int n = 0; n<object_positions.cols(); n++){
+            if(n!=c){
+                Eigen::Vector3d obj_pos_n = object_positions.col(n);
+                Eigen::Vector3d d_pos_cn = obj_pos_n - obj_pos_c;
+                double d_pos_mag = d_pos_cn.norm();
+                if (d_pos_mag > 0.001) { 
+                    sep_vel_c -= d_pos_cn/(pow(d_pos_mag,2));
+                }
+            }
+        }
+        result_matrix.col(c) = sep_vel_c;
     }
 
     return result_matrix;
