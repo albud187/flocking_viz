@@ -72,6 +72,6 @@ cmake --build.
 ./flocking_viz
 ```
 
-
+# Usage
 
 
