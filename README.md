@@ -46,7 +46,7 @@ sh dockerbuild.sh
 sh dockerrun.sh
 ```
 
-3 - create build directory and change directory into `/workdir/build`
+4 - create build directory and change directory into `/workdir/build`
 
 ```
 mkdir build
@@ -56,7 +56,7 @@ mkdir build
 cd build
 ```
 
-4 - initialize cmake and build the project. On the `/workdir/build` execute:
+5 - initialize cmake and build the project. On the `/workdir/build` execute:
 
 ```
 cmake ..
@@ -66,7 +66,7 @@ cmake ..
 cmake --build.
 ```
 
-4 -run the project:
+6 -run the project:
 
 ```
 ./flocking_viz
