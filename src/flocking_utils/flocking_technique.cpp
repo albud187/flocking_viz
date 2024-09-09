@@ -41,6 +41,7 @@ void update_velocities(Eigen::MatrixXd velocity_matrix, std::vector<std::shared_
 
 }
 
+//tend to get velocity to ge the same
 Eigen::MatrixXd alignment_vel(Eigen::MatrixXd object_velocities, Eigen::MatrixXd object_positions){
 
     
