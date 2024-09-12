@@ -56,20 +56,6 @@ void init_shaders(){
 }
 
 
-void flocking_control(std::vector<std::shared_ptr<Mesh>> moving_objects, std::shared_ptr<Mesh> swarm_center){
-
-
-    //get the positions in an array
-    //get the velocities in an array
-    
-    //loop thru game objects that are not selected
-
-    //slected object = swarm center
-
-
-
-}
-
 //need to create a function to insantiate objects dynamically
 //use an ordered_map<int, std::make_shared<Mesh>> ?
 void init_game_objects() {
@@ -77,30 +63,30 @@ void init_game_objects() {
     auto s1 = std::make_shared<Mesh>(PYRAMID3_VERTICES, NV_PYRAMID3, PYRAMID3_INDICES, NI_PYRAMID3);
     s1->SetShaderProgram(shaders[0]);
     s1->setID(11);
-    s1->SetPosition(0, 0, 0);
-    s1->setRotation(0, 0, 0);
+    s1->transform.SetPosition(0, 0, 0);
+    s1->transform.SetRotation(0, 0, 0);
     game_objects.push_back(s1);
 
     auto s2 = std::make_shared<Mesh>(PYRAMID3_VERTICES, NV_PYRAMID3, PYRAMID3_INDICES, NI_PYRAMID3);
     s2->SetShaderProgram(shaders[0]);
     s2->setID(22);
-    s2->SetPosition(1.0f, 1.0f, 3.0f);
-    s2->setRotation(0, 0, 0);
+    s2->transform.SetPosition(1.0f, 1.0f, 3.0f);
+    s2->transform.SetRotation(0, 0, 0);
     game_objects.push_back(s2);
 
     auto s3 = std::make_shared<Mesh>(PYRAMID3_VERTICES, NV_PYRAMID3, PYRAMID3_INDICES, NI_PYRAMID3);
     s3->SetShaderProgram(shaders[0]);
-    s3->setID(22);
-    s3->SetPosition(-1.0f, -1.0f, 3.0f);
-    s3->setRotation(0, 0, 0);
+    s3->setID(33);
+    s3->transform.SetPosition(-1.0f, -1.0f, 3.0f);
+    s3->transform.SetRotation(0, 0, 0);
     game_objects.push_back(s3);
 
     for (int k = 0; k<GRID_L; k++){
         for (int i = 0; i<GRID_W; i++){
             auto grid_square = std::make_shared<Mesh>(SQUARE_VERTICES, NV_SQ, SQUARE_INDICES, NI_SQ);
             grid_square->SetShaderProgram(shaders[0]);
-            grid_square->SetPosition(k-GRID_L/2, 0, i-GRID_W/2);
-            grid_square->setRotation(0,0,0);
+            grid_square->transform.SetPosition(k-GRID_L/2, 0, i-GRID_W/2);
+            grid_square->transform.SetRotation(0,0,0);
             grid_objects.push_back(grid_square);
         }
     }
@@ -123,9 +109,6 @@ static void RenderSceneCB()
     draw_triangles(game_objects, Projection, View, gWVPLocation);
     draw_lines(grid_objects, Projection, View, gWVPLocation);
     
-    // game_objects[0]->transform.setVel(0.0, 0, 0.1);
-    // game_objects[1]->transform.setVel(0,0,0.1);
-    // game_objects[2]->transform.setVel(0,0,-0.1);
 
     for (auto obj : game_objects){
         //Vector3f obj_vel(obj->transform.m_vel.x, obj->transform.m_vel.y, obj->transform.m_vel.z);
@@ -154,8 +137,8 @@ static void spawn_object(){
     auto c_obj = std::make_shared<Mesh>(CUBE_VERTICES, NV_CUBE, CUBE_INDICES, NI_CUBE);
        
     c_obj->SetShaderProgram(shaders[0]);
-    c_obj->SetPosition(0,pos_y,0);
-    c_obj->setRotation(0,0,0);
+    c_obj->transform.SetPosition(0,pos_y,0);
+    c_obj->transform.SetRotation(0,0,0);
     game_objects.push_back(c_obj);
     pos_y = pos_y+1;
 }

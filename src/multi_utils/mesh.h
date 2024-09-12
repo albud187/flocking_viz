@@ -19,10 +19,6 @@ public:
     Mesh(const VT* vertices, unsigned int numVertices, const unsigned int* indices, unsigned int numIndices);
     ~Mesh();
     
-    void SetPosition(float x, float y, float z);
-    void setRotation(float rx, float ry, float rz);
-    void translate(float x, float y, float z);
-    void rotate(float rx, float ry, float rz);
     void Draw(const Matrix4f& projection, const Matrix4f& view, GLuint gWVPLocation);
     void DrawLine(const Matrix4f& projection, const Matrix4f& view, GLuint gWVPLocation);
     void SetShaderProgram(GLuint programID);

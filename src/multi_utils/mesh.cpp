@@ -33,20 +33,20 @@ void Mesh::createIndexBuffer(const unsigned int* indices, unsigned int numIndice
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndices * sizeof(unsigned int), indices, GL_STATIC_DRAW);
 }
 
-void Mesh::SetPosition(float x, float y, float z) {
-    transform.SetPosition(x, y, z);
-}
+// void Mesh::SetPosition(float x, float y, float z) {
+//     transform.SetPosition(x, y, z);
+// }
 
-void Mesh::setRotation(float rx, float ry, float rz) {
-    transform.SetRotation(rx, ry, rz);
-}
+// void Mesh::setRotation(float rx, float ry, float rz) {
+//     transform.SetRotation(rx, ry, rz);
+// }
 
-void Mesh::translate(float x, float y, float z){
-    transform.Translate(x,y,z);
-}
-void Mesh::rotate(float rx, float ry, float rz){
-    transform.Rotate(rx, ry, rz);
-}
+// void Mesh::translate(float x, float y, float z){
+//     transform.Translate(x,y,z);
+// }
+// void Mesh::rotate(float rx, float ry, float rz){
+//     transform.Rotate(rx, ry, rz);
+// }
 
 void Mesh::Draw(const Matrix4f& projection, const Matrix4f& view, GLuint gWVPLocation) {
     glUseProgram(shaderProgramID);
@@ -146,7 +146,7 @@ void move_mesh(std::shared_ptr<Mesh> mesh_ptr, unsigned char key){
         case 'I':
         {
             std::cout<<"z +0.1"<<std::endl;
-            mesh_ptr->translate(0,0,0.1);
+            mesh_ptr->transform.Translate(0,0,0.1);
             break;
         }
 
@@ -154,7 +154,7 @@ void move_mesh(std::shared_ptr<Mesh> mesh_ptr, unsigned char key){
         case 'K':
         {
             std::cout<<"z -0.1"<<std::endl;
-            mesh_ptr->translate(0,0,-0.1);
+            mesh_ptr->transform.Translate(0,0,-0.1);
             break;
         }
 
@@ -162,7 +162,7 @@ void move_mesh(std::shared_ptr<Mesh> mesh_ptr, unsigned char key){
         case 'J':
         {
             std::cout<<"x -0.1"<<std::endl;
-            mesh_ptr->translate(-0.1,0,0);
+            mesh_ptr->transform.Translate(-0.1,0,0);
             break;
         }
 
@@ -170,7 +170,7 @@ void move_mesh(std::shared_ptr<Mesh> mesh_ptr, unsigned char key){
         case 'L':
         {
             std::cout<<"x +0.1"<<std::endl;
-            mesh_ptr->translate(0.1,0,0);
+            mesh_ptr->transform.Translate(0.1,0,0);
             break;
         }
     }
