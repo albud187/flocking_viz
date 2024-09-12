@@ -88,6 +88,13 @@ void init_game_objects() {
     s2->setRotation(0, 0, 0);
     game_objects.push_back(s2);
 
+    auto s3 = std::make_shared<Mesh>(PYRAMID3_VERTICES, NV_PYRAMID3, PYRAMID3_INDICES, NI_PYRAMID3);
+    s3->SetShaderProgram(shaders[0]);
+    s3->setID(22);
+    s3->SetPosition(-1.0f, -1.0f, 3.0f);
+    s3->setRotation(0, 0, 0);
+    game_objects.push_back(s3);
+
     for (int k = 0; k<GRID_L; k++){
         for (int i = 0; i<GRID_W; i++){
             auto grid_square = std::make_shared<Mesh>(SQUARE_VERTICES, NV_SQ, SQUARE_INDICES, NI_SQ);
@@ -116,10 +123,16 @@ static void RenderSceneCB()
     draw_triangles(game_objects, Projection, View, gWVPLocation);
     draw_lines(grid_objects, Projection, View, gWVPLocation);
     
-    game_objects[0]->Draw(Projection, View, gWVPLocation);
-    game_objects[0]->transform.setVel(0.0, 0, 0.1);
+    // game_objects[0]->transform.setVel(0.0, 0, 0.1);
+    // game_objects[1]->transform.setVel(0,0,0.1);
+    // game_objects[2]->transform.setVel(0,0,-0.1);
 
-    game_objects[0]->transform.Translate(game_objects[0]->transform.m_vel.x, game_objects[0]->transform.m_vel.y, game_objects[0]->transform.m_vel.z);
+    for (auto obj : game_objects){
+        //Vector3f obj_vel(obj->transform.m_vel.x, obj->transform.m_vel.y, obj->transform.m_vel.z);
+        Vector3f ct_pt(0,0,0);
+        flocking_control(game_objects, ct_pt);
+        obj->transform.Translate(obj->transform.m_vel.x, obj->transform.m_vel.y, obj->transform.m_vel.z);
+    }
     glutPostRedisplay();
     glutSwapBuffers();
 
@@ -189,7 +202,7 @@ static void MouseCB(int button, int state, int x, int y) {
                     }
                 }
                 std::cout<<"test"<<std::endl;
-                moving_objects[0]->setRotation(0, 30, 0);
+                //moving_objects[0]->setRotation(0, 30, 0);
             }
         }
         GameCamera.OnMouseDown(button, x, y); 
