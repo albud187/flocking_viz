@@ -19,8 +19,9 @@ Eigen::MatrixXd cohesion_vel(Eigen::MatrixXd object_positions,
 
 Eigen::MatrixXd seperation_vel(Eigen::MatrixXd object_positions);
 
-Eigen::MatrixXd velocity_net(Eigen::MatrixXd ali_vel, Eigen::MatrixXd coh_vel, Eigen::MatrixXd sep_vel,
-                             float K_ali, float K_coh, float K_sep);
+void flocking_control(std::vector<std::shared_ptr<Mesh>> input_objects, Vector3f control_point);
+// Eigen::MatrixXd velocity_net(Eigen::MatrixXd ali_vel, Eigen::MatrixXd coh_vel, Eigen::MatrixXd sep_vel,
+//                              float K_ali, float K_coh, float K_sep);
 
 
 

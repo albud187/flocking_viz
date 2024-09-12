@@ -40,6 +40,17 @@ void update_velocities(Eigen::MatrixXd velocity_matrix, std::vector<std::shared_
 
 }
 
+double velocity_mag (double target_distance, double max_vel, double dt){
+    
+    if (target_distance > max_vel*dt){
+        return max_vel;
+    } else{
+        double result = target_distance/dt;
+        return result;
+    }
+
+}
+
 //tend to get velocity to ge the same
 Eigen::MatrixXd alignment_vel(Eigen::MatrixXd object_velocities){
 
@@ -60,16 +71,7 @@ Eigen::MatrixXd alignment_vel(Eigen::MatrixXd object_velocities){
 
 }
 
-double velocity_mag (double target_distance, double max_vel, double dt){
-    
-    if (target_distance > max_vel*dt){
-        return max_vel;
-    } else{
-        double result = target_distance/dt;
-        return result;
-    }
 
-}
 
 Eigen::MatrixXd cohesion_vel(Eigen::MatrixXd object_positions, 
                             Vector3f control_point,
@@ -127,4 +129,19 @@ Eigen::MatrixXd seperation_vel(Eigen::MatrixXd object_positions){
     }
 
     return result_matrix;
+}
+
+void flocking_control(std::vector<std::shared_ptr<Mesh>> input_objects, Vector3f control_point){
+    Eigen::MatrixXd vel_mat = VelocityMatrix(input_objects);
+    Eigen::MatrixXd pos_mat = PositionMatrix(input_objects);
+
+    double V_MAX = 10;
+    Eigen::MatrixXd ali_vels = alignment_vel(vel_mat);
+    Eigen::MatrixXd coh_vels = cohesion_vel(pos_mat, control_point, V_MAX);
+    Eigen::MatrixXd sep_vels = seperation_vel(pos_mat);
+
+    Eigen::MatrixXd v_net = ali_vels + coh_vels + sep_vels;
+
+    update_velocities(v_net, input_objects);
+
 }
