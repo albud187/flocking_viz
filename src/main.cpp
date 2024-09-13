@@ -110,12 +110,24 @@ static void RenderSceneCB()
     draw_lines(grid_objects, Projection, View, gWVPLocation);
     
 
-    for (auto obj : game_objects){
+    if (target_object!= nullptr){
+         for (auto obj : moving_objects){
         //Vector3f obj_vel(obj->transform.m_vel.x, obj->transform.m_vel.y, obj->transform.m_vel.z);
-        Vector3f ct_pt(0,0,0);
+
+        Vector3f ct_pt(target_object->transform.m_pos.x,target_object->transform.m_pos.y,target_object->transform.m_pos.z);
         flocking_control(game_objects, ct_pt);
         obj->transform.Translate(obj->transform.m_vel.x, obj->transform.m_vel.y, obj->transform.m_vel.z);
+        }
+    } else {
+            for (auto obj : game_objects){
+            //Vector3f obj_vel(obj->transform.m_vel.x, obj->transform.m_vel.y, obj->transform.m_vel.z);
+            Vector3f ct_pt(0,0,0);
+            flocking_control(game_objects, ct_pt);
+            obj->transform.Translate(obj->transform.m_vel.x, obj->transform.m_vel.y, obj->transform.m_vel.z);
+        }
     }
+    
+
     glutPostRedisplay();
     glutSwapBuffers();
 
