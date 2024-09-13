@@ -33,21 +33,6 @@ void Mesh::createIndexBuffer(const unsigned int* indices, unsigned int numIndice
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndices * sizeof(unsigned int), indices, GL_STATIC_DRAW);
 }
 
-// void Mesh::SetPosition(float x, float y, float z) {
-//     transform.SetPosition(x, y, z);
-// }
-
-// void Mesh::setRotation(float rx, float ry, float rz) {
-//     transform.SetRotation(rx, ry, rz);
-// }
-
-// void Mesh::translate(float x, float y, float z){
-//     transform.Translate(x,y,z);
-// }
-// void Mesh::rotate(float rx, float ry, float rz){
-//     transform.Rotate(rx, ry, rz);
-// }
-
 void Mesh::Draw(const Matrix4f& projection, const Matrix4f& view, GLuint gWVPLocation) {
     glUseProgram(shaderProgramID);
     Matrix4f world_pose = transform.GetMatrix();

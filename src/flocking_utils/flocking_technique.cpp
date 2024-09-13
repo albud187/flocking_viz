@@ -1,23 +1,16 @@
 #include "../multi_utils/mesh.h"
+#include "flocking_constants.h"
 #include <Eigen/Dense>
 //matrix tools interfaces with opengl
 
 Eigen::MatrixXd VelocityMatrix(std::vector<std::shared_ptr<Mesh>> input_objects){
     Eigen::MatrixXd result_matrix(3, input_objects.size());
 
-    // int col = 0;
-
     for (int col = 0; col <input_objects.size(); col++){
         result_matrix(0,col) = input_objects[col]->transform.m_vel.x;
         result_matrix(1,col) = input_objects[col]->transform.m_vel.y;
         result_matrix(2,col) = input_objects[col]->transform.m_vel.z;
     }
-    // for (const auto& mesh_ptr : input_objects){
-    //     result_matrix(0, col) = mesh_ptr->transform.m_pos.x;
-    //     result_matrix(1, col) = mesh_ptr->transform.m_pos.y;
-    //     result_matrix(2, col) = mesh_ptr->transform.m_pos.z;
-        
-    // }
 
     return result_matrix;
 }
@@ -25,14 +18,6 @@ Eigen::MatrixXd VelocityMatrix(std::vector<std::shared_ptr<Mesh>> input_objects)
 Eigen::MatrixXd PositionMatrix(std::vector<std::shared_ptr<Mesh>> input_objects){
     Eigen::MatrixXd result_matrix(3, input_objects.size());
 
-    // int col = 0;
-
-    // for (const auto& mesh_ptr : input_objects){
-    //     result_matrix(0, col) = mesh_ptr->transform.m_pos.x;
-    //     result_matrix(1, col) = mesh_ptr->transform.m_pos.y;
-    //     result_matrix(2, col) = mesh_ptr->transform.m_pos.z;
-        
-    // }
     for (int col = 0; col <input_objects.size(); col++){
         result_matrix(0,col) = input_objects[col]->transform.m_pos.x;
         result_matrix(1,col) = input_objects[col]->transform.m_pos.y;
@@ -49,16 +34,16 @@ void update_velocities(Eigen::MatrixXd velocity_matrix, std::vector<std::shared_
 
 }
 
-double velocity_mag (double target_distance, double max_vel, double dt){
-    
-    if (target_distance > max_vel*dt){
+double velocity_mag(double target_distance, double max_vel, double dt) {
+    double min_vel = 3;  // introduce a minimum velocity
+    if (target_distance > max_vel * dt) {
         return max_vel;
-    } else{
-        double result = target_distance/dt;
-        return result;
+    } else {
+        double result = target_distance / dt;
+        return (result > min_vel) ? result : min_vel;  // ensure velocity doesn’t go below min_vel
     }
-
 }
+
 
 //tend to get velocity to ge the same
 Eigen::MatrixXd alignment_vel(Eigen::MatrixXd object_velocities){
@@ -144,12 +129,11 @@ void flocking_control(std::vector<std::shared_ptr<Mesh>> input_objects, Vector3f
     Eigen::MatrixXd vel_mat = VelocityMatrix(input_objects);
     Eigen::MatrixXd pos_mat = PositionMatrix(input_objects);
 
-    double V_MAX = 3.5;
     Eigen::MatrixXd ali_vels = alignment_vel(vel_mat);
     Eigen::MatrixXd coh_vels = cohesion_vel(pos_mat, control_point, V_MAX);
     Eigen::MatrixXd sep_vels = seperation_vel(pos_mat);
 
-    Eigen::MatrixXd v_net =0.25*( 0.5*ali_vels + 1.5*coh_vels + 0.5*sep_vels);
+    Eigen::MatrixXd v_net = 0.25*(K_ALI*ali_vels + K_COH*coh_vels + K_SEP*sep_vels);
 
     update_velocities(v_net, input_objects);
 

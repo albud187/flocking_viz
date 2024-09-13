@@ -13,9 +13,9 @@ float WINDOW_HEIGHT = 1000;
 float TARGET_FPS = 60;
 int TARGET_FPS_DELAY_MS = 1000*(1/TARGET_FPS);
 
-Vector3f CAMERA_POS(0.0f, 15.0f, -0.0f);
-Vector3f CAMERA_TARGET(-0.0001f, -2.0f, 0.0001f);
-Vector3f CAMERA_UP(0.0f, 0.0f, 1.0f);
+Vector3f CAMERA_POS(0.0f, 15.0f, -1.0f);
+Vector3f CAMERA_TARGET(-0.2001f, -2.0f, 1.0001f);
+Vector3f CAMERA_UP(0.0f, 0.1f, 0.0f);
 
 float FOV = 90.0f;
 float Z_NEAR= 0.25f;
@@ -28,14 +28,14 @@ const char* VS2_FILE_NAME= "/workdir/src/shaders/shader2.vs";
 const char* FS2_FILE_NAME = "/workdir/src/shaders/shader2.fs";
 
 VT CUBE_VERTICES[] = {
-    VT(0.1f, 0.1f, 0.1f, 0.95, 0.35, 0.35),
-    VT(-0.1f, 0.1f, -0.1f, 0.95, 0.35, 0.35),
-    VT(-0.1f, 0.1f, 0.1f, 0.95, 0.35, 0.35),
-    VT(0.1f, -0.1f, -0.1f, 0.95, 0.35, 0.35),
-    VT(-0.1f, -0.1f, -0.1f, 0.95, 0.35, 0.35),
-    VT(0.1f, 0.1f, -0.1f, 0.95, 0.35, 0.35),
-    VT(0.1f, -0.1f, 0.1f, 0.95, 0.35, 0.35),
-    VT(-0.1f, -0.1f, 0.1f, 0.95, 0.35, 0.35)
+    VT(0.075f, 0.075f, 0.075f, 0.95, 0.35, 0.35),
+    VT(-0.075f, 0.075f, -0.075f, 0.95, 0.35, 0.35),
+    VT(-0.075f, 0.075f, 0.075f, 0.95, 0.35, 0.35),
+    VT(0.075f, -0.075f, -0.075f, 0.95, 0.35, 0.35),
+    VT(-0.075f, -0.075f, -0.075f, 0.95, 0.35, 0.35),
+    VT(0.075f, 0.075f, -0.075f, 0.95, 0.35, 0.35),
+    VT(0.075f, -0.075f, 0.075f, 0.95, 0.35, 0.35),
+    VT(-0.075f, -0.075f, 0.075f, 0.95, 0.35, 0.35)
     };
     
 unsigned int CUBE_INDICES[] = {
