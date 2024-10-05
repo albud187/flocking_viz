@@ -56,30 +56,28 @@ void init_shaders(){
 }
 
 
-//need to create a function to insantiate objects dynamically
-//use an ordered_map<int, std::make_shared<Mesh>> ?
+// make all objects multicoloured cubes
+
+// need to create a function to insantiate objects dynamically
+// use an ordered_map<int, std::make_shared<Mesh>> ?
+
+// change spawn location
+// delete object
+
+void add_cube(float xpos, float ypos, float zpos, int id){
+    auto obj = std::make_shared<Mesh>(CUBE_VERTICES, NV_CUBE, CUBE_INDICES, NI_CUBE);
+    obj->SetShaderProgram(shaders[0]);
+    obj->setID(id);
+    obj->transform.SetPosition(xpos, ypos, zpos);
+    obj->transform.SetRotation(0, 0, 0);
+    game_objects.push_back(obj);
+}
+
 void init_game_objects() {
 
-    auto s1 = std::make_shared<Mesh>(PYRAMID3_VERTICES, NV_PYRAMID3, PYRAMID3_INDICES, NI_PYRAMID3);
-    s1->SetShaderProgram(shaders[0]);
-    s1->setID(11);
-    s1->transform.SetPosition(0, 0, 0);
-    s1->transform.SetRotation(0, 0, 0);
-    game_objects.push_back(s1);
-
-    auto s2 = std::make_shared<Mesh>(PYRAMID3_VERTICES, NV_PYRAMID3, PYRAMID3_INDICES, NI_PYRAMID3);
-    s2->SetShaderProgram(shaders[0]);
-    s2->setID(22);
-    s2->transform.SetPosition(1.0f, 1.0f, 3.0f);
-    s2->transform.SetRotation(0, 0, 0);
-    game_objects.push_back(s2);
-
-    auto s3 = std::make_shared<Mesh>(PYRAMID3_VERTICES, NV_PYRAMID3, PYRAMID3_INDICES, NI_PYRAMID3);
-    s3->SetShaderProgram(shaders[0]);
-    s3->setID(33);
-    s3->transform.SetPosition(-1.0f, -1.0f, 3.0f);
-    s3->transform.SetRotation(0, 0, 0);
-    game_objects.push_back(s3);
+    add_cube(4.0f, 4.0f, -4.0f, 1);
+    add_cube(-3.0f, 4.0f, -2.0f, 2);
+    add_cube(8.0f, 4.0f, 4.0f, 3);
 
     for (int k = 0; k<GRID_L; k++){
         for (int i = 0; i<GRID_W; i++){
