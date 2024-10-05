@@ -86,7 +86,15 @@ additional objects can be added (or removed). The camera can also be moved and r
 
 | Index | Key         | Description                                                                                                                                          | 
 |-------|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 0     | I / K | moves the selected object along the x axis | 
-| 1     | J / L  | moves the selected object along the y axis | 
-| 2     | N / M | moves the selected object along the z axis | 
-| 3     | mouse click | selects an object using ray casting and [triangle ray intersection test]([url](https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm)) |
+| 1     | mouse click | selects an object using ray casting and [triangle ray intersection test]([url](https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm)) |
+| 2     | mouse hold/movement | rotate camera |
+| 3     | A / D | move camera left / right | 
+| 4     | W / S  | move camera up / down | 
+| 5     | + / -  | increase / decrease camera movement speed | 
+| 6     | I / K | moves the selected cube along the z axis | 
+| 7     | J / L  | moves the selected cube along the x axis | 
+| 9     | N / M | moves the selected cube along the y (vertical) axis | 
+| 10     | E | spawns additional cube | 
+| 11    | R | removes most recently added cube | 
+
+
