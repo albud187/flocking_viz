@@ -74,25 +74,27 @@ cmake --build.
 
 # Usage
 
-When the project is started ... :
+The project will render a 3D environment with objects (cubes) whose movement is governed by reynold's boids, centered around the selected cube. It will initially start with 3 cubes:
 
 ![start](https://github.com/albud187/flocking_viz/blob/main/.images/initial_run.JPG)
 
-additional objects can be added (or removed). The camera can also be moved and rotated:
+Additional cubes can be added / removed / selected. The selected cube can be moved, which will cause the rest of the cubes to move as well. 
+
+The camera can also be moved / rotated:
 
 ![test](https://github.com/albud187/flocking_viz/blob/main/.images/test_run.JPG)
-
 
 
 | Index | Key         | Description                                                                                                                                          | 
 |-------|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 1     | mouse click | selects an object using ray casting and [triangle ray intersection test]([url](https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm)) |
 | 2     | mouse hold/movement | rotate camera |
-| 3     | A / D | move camera left / right | 
-| 4     | W / S  | move camera up / down | 
-| 5     | + / -  | increase / decrease camera movement speed | 
-| 6     | I / K | moves the selected cube along the z axis | 
-| 7     | J / L  | moves the selected cube along the x axis | 
+| 3     | mouse wheel | zoom camera in / out (move camera forwards / backwards |
+| 4     | A / D | move camera left / right | 
+| 5     | W / S  | move camera up / down | 
+| 6     | + / -  | increase / decrease camera movement speed | 
+| 7     | I / K | moves the selected cube along the z axis | 
+| 8     | J / L  | moves the selected cube along the x axis | 
 | 9     | N / M | moves the selected cube along the y (vertical) axis | 
 | 10     | E | spawns additional cube | 
 | 11    | R | removes most recently added cube | 
