@@ -74,4 +74,9 @@ cmake --build.
 
 # Usage
 
-When the project is started ...s
+When the project is started ... :
+![start](https://github.com/albud187/flocking_viz/blob/main/.images/initial_run.JPG)
+
+additional objects can be added (or removed). The camera can also be moved and rotated:
+
+![test](https://github.com/albud187/flocking_viz/blob/main/.images/test_run.JPG)
