@@ -5,8 +5,10 @@
 #define CONSTANTS_H
 
 std::vector<unsigned char> CAM_KEYS ={'a', 'A', 's', 'S', 'd', 'D', 'w', 'W', 'q', 'Q', 'z','Z','-','='};
-std::vector<unsigned char> WORK_KEYS ={'e', 'E'};
-std::vector<unsigned char> MESH_MOVE_KEYS={'i', 'I', 'k', 'K', 'j','J','l','L'};
+std::vector<unsigned char> ADD_CUBE_KEYS ={'e', 'E'};
+std::vector<unsigned char> DEL_CUBE_KEYS ={'r', 'R'};
+
+std::vector<unsigned char> MESH_MOVE_KEYS={'i', 'I', 'k', 'K', 'j','J','l','L', 'n', 'N', 'm','M'};
 float WINDOW_WIDTH = 1000;
 float WINDOW_HEIGHT = 1000;
 

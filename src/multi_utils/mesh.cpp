@@ -158,6 +158,22 @@ void move_mesh(std::shared_ptr<Mesh> mesh_ptr, unsigned char key){
             mesh_ptr->transform.Translate(0.1,0,0);
             break;
         }
+
+        case 'n':
+        case 'N':
+        {
+            std::cout<<"y +0.1"<<std::endl;
+            mesh_ptr->transform.Translate(0.0,0.1,0);
+            break;
+        }
+        
+        case 'm':
+        case 'M':
+        {
+            std::cout<<"y -0.1"<<std::endl;
+            mesh_ptr->transform.Translate(0.0,-0.1,0);
+            break;
+        }
     }
 }
 

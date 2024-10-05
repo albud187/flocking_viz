@@ -55,30 +55,27 @@ void init_shaders(){
     shaders.push_back(shader2);
 }
 
-
-// make all objects multicoloured cubes
-
-// need to create a function to insantiate objects dynamically
-// use an ordered_map<int, std::make_shared<Mesh>> ?
-
-// change spawn location
-// delete object
-
-void add_cube(float xpos, float ypos, float zpos, int id){
+void add_cube(Vector3f cube_pos, int id){
     auto obj = std::make_shared<Mesh>(CUBE_VERTICES, NV_CUBE, CUBE_INDICES, NI_CUBE);
     obj->SetShaderProgram(shaders[0]);
     obj->setID(id);
-    obj->transform.SetPosition(xpos, ypos, zpos);
+    obj->transform.SetPosition(cube_pos.x, cube_pos.y, cube_pos.z);
     obj->transform.SetRotation(0, 0, 0);
     game_objects.push_back(obj);
 }
 
 void init_game_objects() {
 
-    add_cube(4.0f, 4.0f, -4.0f, 1);
-    add_cube(-3.0f, 4.0f, -2.0f, 2);
-    add_cube(8.0f, 4.0f, 4.0f, 3);
+    vector<Vector3f> initial_positions = {
+        Vector3f(4.0f, 4.0f, -4.0f),
+        Vector3f(-3.0f, 4.0f, -2.0f),
+        Vector3f(8.0f, 4.0f, 4.0f)
+    };
 
+    for (int n = 0; n<initial_positions.size(); n++){
+        add_cube(initial_positions[n], n+1);
+    }
+    
     for (int k = 0; k<GRID_L; k++){
         for (int i = 0; i<GRID_W; i++){
             auto grid_square = std::make_shared<Mesh>(SQUARE_VERTICES, NV_SQ, SQUARE_INDICES, NI_SQ);
@@ -141,25 +138,20 @@ static void RenderSceneCB()
     
 }
 
-float pos_y = 0;
-static void spawn_object(){
-
-    auto c_obj = std::make_shared<Mesh>(CUBE_VERTICES, NV_CUBE, CUBE_INDICES, NI_CUBE);
-       
-    c_obj->SetShaderProgram(shaders[0]);
-    c_obj->transform.SetPosition(0,pos_y,0);
-    c_obj->transform.SetRotation(0,0,0);
-    game_objects.push_back(c_obj);
-    pos_y = pos_y+1;
-}
-
 static void KeyboardCB(unsigned char key, int mouse_x, int mouse_y)
 {
     if (std::find(CAM_KEYS.begin(), CAM_KEYS.end(), key)!=CAM_KEYS.end()){
         GameCamera.OnKeyboard(key);
     }
-    if (std::find(WORK_KEYS.begin(), WORK_KEYS.end(), key)!=WORK_KEYS.end()){
-        spawn_object();
+    if (std::find(ADD_CUBE_KEYS.begin(), ADD_CUBE_KEYS.end(), key)!=ADD_CUBE_KEYS.end()){
+        Vector3f origin(0.0f, 0.0f, 0.0f);
+        add_cube(origin, game_objects.size()+1);
+    }
+
+    if (std::find(DEL_CUBE_KEYS.begin(), DEL_CUBE_KEYS.end(), key)!=DEL_CUBE_KEYS.end()){
+        if (game_objects.size()>0){
+            game_objects.pop_back();
+        }
     }
     
     if(std::find(MESH_MOVE_KEYS.begin(), MESH_MOVE_KEYS.end(), key)!=MESH_MOVE_KEYS.end()){
@@ -171,6 +163,7 @@ static void KeyboardCB(unsigned char key, int mouse_x, int mouse_y)
 static void MotionCB(int x, int y) {
     GameCamera.OnMouse(x, y);
 }
+
 static void MouseCB(int button, int state, int x, int y) {
     
     Matrix4f Projection;
@@ -191,11 +184,9 @@ static void MouseCB(int button, int state, int x, int y) {
                 for (std::shared_ptr<Mesh> obj : game_objects){
                     if (obj!=target_object){
                         moving_objects.push_back(obj);
-                        std::cout<<"test"<<std::endl;
                     }
                 }
-                std::cout<<"test"<<std::endl;
-                //moving_objects[0]->setRotation(0, 30, 0);
+                
             }
         }
         GameCamera.OnMouseDown(button, x, y); 
