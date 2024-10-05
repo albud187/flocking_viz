@@ -66,7 +66,7 @@ cmake ..
 cmake --build.
 ```
 
-6 -run the project:
+6 - run the project:
 
 ```
 ./flocking_viz
@@ -74,4 +74,4 @@ cmake --build.
 
 # Usage
 
-
+When the project is started ...s
